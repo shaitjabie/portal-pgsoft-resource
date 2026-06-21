@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻量叙事 · 模拟体验</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f7f3eb;
+      font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.65;
+      color: #2d2a24;
+      padding: 0;
+    }
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3.5rem;
+    }
+
+    /* 顶部导航 */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0 1.2rem;
+      border-bottom: 1px solid #d9d0c2;
+      margin-bottom: 2.8rem;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-weight: 480;
+      font-size: 1.2rem;
+      letter-spacing: 0.01em;
+      color: #3b352e;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      font-size: 0.95rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #4f473d;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #8b6f4a;
+    }
+
+    /* Hero 区 */
+    .hero {
+      margin-bottom: 2.6rem;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 420;
+      letter-spacing: -0.01em;
+      color: #2b261f;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: #4f4a41;
+      max-width: 650px;
+    }
+    .hero .tagline {
+      display: inline-block;
+      background: #e9e0d3;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #524b40;
+      margin-top: 0.6rem;
+    }
+
+    /* 引用块 / 提示框 */
+    .notice-box {
+      background: #f1ece2;
+      border-left: 5px solid #b8a387;
+      padding: 1.1rem 1.4rem;
+      margin: 2rem 0 2.4rem;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.98rem;
+      color: #3d382f;
+    }
+    .notice-box strong {
+      color: #5a4c36;
+    }
+
+    /* 场景卡片三块 */
+    .scenes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2.6rem 0 2.8rem;
+    }
+    .scene-card {
+      flex: 1 1 200px;
+      background: #ffffffdd;
+      backdrop-filter: blur(2px);
+      background: #fcf9f5;
+      border-radius: 14px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02), 0 4px 12px rgba(62, 52, 38, 0.04);
+      border: 1px solid #e7dfd3;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .scene-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(60, 50, 36, 0.06);
+    }
+    .scene-card h3 {
+      font-weight: 430;
+      font-size: 1.1rem;
+      letter-spacing: 0.01em;
+      border-bottom: 1px dashed #d8cdbb;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.8rem;
+      color: #3d362d;
+    }
+    .scene-card p {
+      font-size: 0.95rem;
+      color: #5a5245;
+    }
+
+    /* 常见说明区 */
+    .faq-summary {
+      margin-top: 1.8rem;
+    }
+    .faq-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #e0d6c7;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-q {
+      font-weight: 460;
+      color: #3f382e;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: baseline;
+    }
+    .faq-q::before {
+      content: "▹";
+      margin-right: 0.6rem;
+      color: #a08b70;
+    }
+    .faq-a {
+      padding-left: 1.5rem;
+      color: #595045;
+      font-size: 0.95rem;
+    }
+    .faq-a a {
+      color: #7b684b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+
+    /* 嵌入式链接（必须的 a 标签） */
+    .inline-link {
+      color: #7b684b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      transition: color 0.2s;
+    }
+    .inline-link:hover {
+      color: #a5855e;
+    }
+
+    /* 页脚 */
+    .footer-note {
+      margin-top: 3.2rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid #d9d0c2;
+      font-size: 0.88rem;
+      color: #6c6356;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 580px) {
+      .wrap { padding: 1.2rem 1rem 2.5rem; }
+      .hero h1 { font-size: 1.7rem; }
+      nav { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+      .nav-links { flex-wrap: wrap; gap: 1rem; }
+      .scenes { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 顶部导航 -->
+  <nav>
+    <span class="logo">◈ 模拟辑</span>
+    <div class="nav-links">
+      <a href="#">场景</a>
+      <a href="#">说明</a>
+      <a href="#">随笔</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>轻量模拟 · 自然落点</h1>
+    <p>从日常里抽出一小片空隙，在浏览与调整之间找到手感。这里不堆概念，只聊那些让人愿意停下来的细节。</p>
+    <span class="tagline">米白背景 · 文章式排版</span>
+  </div>
+
+  <!-- 提示 / 引用块 -->
+  <div class="notice-box">
+    <strong>一次侧写</strong><br>
+    模拟的乐趣往往藏在最普通的动作里：滑动、点击、等待、观察反馈。如果你也喜欢这种轻节奏的交互，不妨了解一下 <a href="https://portal--pgsoft.com" class="inline-link">pg模拟器</a> —— 它把许多零散想法收拢在一起，形成一种更连贯的尝试空间。
+  </div>
+
+  <!-- 三个场景模块 -->
+  <div class="scenes">
+    <div class="scene-card">
+      <h3>晨间 · 参数微调</h3>
+      <p>早晨打开页面，先不急着进入状态，而是调整一两项显示偏好。字体大小、配色深浅、组件间距——这些细小的决定让接下来的操作更贴合自己的习惯。</p>
+    </div>
+    <div class="scene-card">
+      <h3>午后 · 随机浏览</h3>
+      <p>没有明确目标的时段反而容易发现意外组合。切换几个不同风格的设置，观察界面如何重组，像翻一本没有目录的册子，每一页都是新的。</p>
+    </div>
+    <div class="scene-card">
+      <h3>傍晚 · 记录与归档</h3>
+      <p>把白天觉得舒服的配置存下来，或者写下几句使用感受。模拟环境里的每一次尝试都可以成为下一次的参照，不必每次都从零开始。</p>
+    </div>
+  </div>
+
+  <!-- 常见说明 (FAQ摘要) -->
+  <div class="faq-summary">
+    <div class="faq-item">
+      <div class="faq-q">为什么强调“轻量”与“导航式”？</div>
+      <div class="faq-a">页面结构侧重快速定位，每个模块独立但不割裂。信息密度控制在阅读舒适区内，避免大段堆叠。适合碎片时间浏览。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">与一般模拟工具的区别？</div>
+      <div class="faq-a">更关注日常使用场景的提炼，而非功能列表的罗列。例如在 <a href="https://portal--pgsoft.com" class="inline-link">pg模拟器</a> 中，操作流程被拆解为可反复调整的单元，鼓励用户按自己的节奏探索。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">是否需要预先熟悉复杂术语？</div>
+      <div class="faq-a">不需要。所有说明尽量采用生活化语言，提示框和引用块用来补充上下文，而不是增加理解门槛。初次接触也能在几分钟内建立基本认知。</div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footer-note">
+    <span>基于轻量导航思路 · 文章感布局</span>
+    <span>灵感来自日常模拟与整理</span>
+  </div>
+
+</div>
+</body>
+</html>
